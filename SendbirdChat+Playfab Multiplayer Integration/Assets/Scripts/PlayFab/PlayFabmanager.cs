@@ -84,6 +84,13 @@ public class PlayFabmanager : MonoBehaviour
         PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterFailure);
     }
 
+    public void SignUp(string Email , string Password,string Username )
+    {
+        // Debug.Log(username.text);
+        var registerRequest = new RegisterPlayFabUserRequest { Email = Email, Password = Encrypt(Password), Username = Username };
+        PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterFailure);
+    }
+
     void RegisterSuccess(RegisterPlayFabUserResult result)
     {
         errorSignUp.text = " ";
@@ -102,6 +109,16 @@ public class PlayFabmanager : MonoBehaviour
         var request = new LoginWithEmailAddressRequest { Email = userEmailLogin.text, Password = Encrypt(userPasswordLogin.text) };
         PlayFabClientAPI.LoginWithEmailAddress(request, LoginSuccess, loginFailure);
     }
+
+    public void Login(string Email, string Password)
+    {
+        var request = new LoginWithEmailAddressRequest { Email = Email, Password = Encrypt(Password), InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+        {
+            GetPlayerProfile = true
+        }
+        };
+        PlayFabClientAPI.LoginWithEmailAddress(request, LoginSuccess, loginFailure);
+    }
     void loginFailure(PlayFabError error)
     {
         errorLogin.text = "Error Logging in ";
@@ -111,7 +128,7 @@ public class PlayFabmanager : MonoBehaviour
     void LoginSuccess(LoginResult login)
     {
         errorLogin.text = " ";
-        PlayerUsername = login.InfoResultPayload.PlayerProfile.DisplayName;
+        PlayerUsername =  login.InfoResultPayload.PlayerProfile.DisplayName;
 
         SceneManager.LoadScene("Connect");
     }
@@ -125,35 +142,14 @@ public class PlayFabmanager : MonoBehaviour
            // Data = Any Custom Dictionary
         };
 
-        PlayFabClientAPI.UpdateUserData(request, OnDataSend, OnError);
+        PlayFabClientAPI.UpdateUserData(request, result => Debug.Log("Data Saved"), error => Debug.LogError(error.GenerateErrorReport()));
     }
 
-    void OnDataSend(UpdateUserDataResult result)
-    {
-
-    }
-
-    void OnError(PlayFabError error)
-    {
-
-    }
+   
 
     public void LoadData()
     {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnDataRecieved, OnError);
-    }
-
-    void OnDataRecieved(GetUserDataResult data)
-    {
-        if (data.Data != null)
-        {
-
-        }
-        else
-        {
-
-        }
-
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest(), result => Debug.Log("Data Loaded"), error => Debug.LogError(error.GenerateErrorReport()));
     }
 
     #endregion
