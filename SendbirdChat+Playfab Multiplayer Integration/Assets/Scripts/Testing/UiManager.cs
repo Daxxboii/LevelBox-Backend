@@ -28,11 +28,11 @@ public class UiManager : MonoBehaviour
                 PlayFabmanager.instance.Login("jpGord00@gmail.com", "JP123/");
             }
 
-            if (GUI.Button(new Rect(20, 150, 150, 30), "Login as Other"))
+          /*  if (GUI.Button(new Rect(20, 150, 150, 30), "Login as Other"))
             {
 
 
-            }
+            }*/
         }
     }
 }

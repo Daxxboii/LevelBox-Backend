@@ -8,6 +8,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 
 public class PlayFabmanager : MonoBehaviour
 {
@@ -26,8 +27,6 @@ public class PlayFabmanager : MonoBehaviour
     public TextMeshProUGUI errorLogin;
 
     string encryptedPassword;
-
-    public static string PlayerUsername;
 
     private void Awake()
     {
@@ -94,7 +93,7 @@ public class PlayFabmanager : MonoBehaviour
     void RegisterSuccess(RegisterPlayFabUserResult result)
     {
         errorSignUp.text = " ";
-        PlayerUsername = result.Username;
+        GameManager.PlayerUserName = result.Username;
         SceneManager.LoadScene("Connect");
     }
 
@@ -128,8 +127,7 @@ public class PlayFabmanager : MonoBehaviour
     void LoginSuccess(LoginResult login)
     {
         errorLogin.text = " ";
-        PlayerUsername =  login.InfoResultPayload.PlayerProfile.DisplayName;
-
+        GameManager.PlayerUserName =  login.InfoResultPayload.PlayerProfile.DisplayName;
         SceneManager.LoadScene("Connect");
     }
     #endregion
