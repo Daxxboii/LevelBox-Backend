@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using TMPro;
 using MyBox;
 using PlayFab.Json;
+using System.Drawing;
 
 public class SignalRClient : MonoBehaviour 
 {
@@ -44,9 +45,18 @@ public class SignalRClient : MonoBehaviour
        ConnectingStatus.text = "Connected";
 
        ChannelName.gameObject.SetActive(true);
-        EventButton.SetActive(true);
+       EventButton.SetActive(true);
 
+        //Map Data to Functions
+        MapDataToFunctions();
 
+        //Replacing "Group" with Clan Name 
+        await connection.InvokeAsync<string>("AddToGroup", "Group");
+        await connection.InvokeAsync<string>("SendSignalRIDToClient");
+    }
+
+    void MapDataToFunctions()
+    {
         //On Recieving Public Data
         connection.On<string>("Data", (data) =>
         {
@@ -74,9 +84,6 @@ public class SignalRClient : MonoBehaviour
             Debug.Log(DeserializedData);
         });
 
-
-
-
         //On Receiving SignalR ID
         connection.On<string>("SignalRID", (data) =>
         {
@@ -84,11 +91,32 @@ public class SignalRClient : MonoBehaviour
         });
 
 
-        await connection.InvokeAsync<string>("AddToGroup", "Group");
-        await connection.InvokeAsync<string>("SendSignalRIDToClient");
+        //On Blocks Received
+        connection.On<string>("DonateBlocks", (data) =>
+        {
+            dynamic DeserializedData = JsonConvert.DeserializeObject(data);
+            //pull block data from DeserializedData and add to inventory
+            Debug.Log(DeserializedData);
+        });
+
     }
 
    
+    //If Player Requests a Block
+    public async void RequestBlock(string BlockData)
+    {
+        await connection.InvokeAsync<string>("RequestBlocks", BlockData);
+        //Update UI
+    }
+
+    //If Player Donates a Block
+    public async void DonateBlock(string BlockData)
+    {
+        await connection.InvokeAsync<string>("DonateBlocks", BlockData);
+        //Remove the blocks from inventory
+    }
+
+    
 
     private async void OnApplicationQuit()
     {
