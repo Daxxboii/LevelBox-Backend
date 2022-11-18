@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Microsoft.AspNetCore.SignalR.Client;
+//using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using TMPro;
 using MyBox;
@@ -14,7 +14,7 @@ using System.Drawing;
 public class SignalRClient : MonoBehaviour 
 {
     // SignalR variables
-    private static Uri uri = new Uri("https://localhost:7213/GameHub");
+   /* private static Uri uri = new Uri("https://localhost:7213/GameHub");
 
     public static SignalRClient instance;
 
@@ -129,5 +129,5 @@ public class SignalRClient : MonoBehaviour
     {
         await connection.InvokeAsync<string>("RemoveFromGroup", "Group");
         await connection.StopAsync();
-    }
+    }*/
 }

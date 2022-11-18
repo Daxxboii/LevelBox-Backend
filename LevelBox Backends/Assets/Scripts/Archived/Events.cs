@@ -15,9 +15,9 @@ public class Events : MonoBehaviour
     [SerializeField] private string DataValue;
 
     public void SendEvent(){
-        if(EventInvokeType=="All")PlayFabmanager.instance.SendEventToAll(SignalRClient.instance.SignalRID,DataType,DataValue);
-        else if (EventInvokeType == "Private") PlayFabmanager.instance.SendEventToPrivatePlayer(SignalRClient.instance.SignalRID, DataType, DataValue);
-        else PlayFabmanager.instance.SendEventToGroup(SignalRClient.instance.SignalRID,"GroupName", DataType, DataValue);
+      //  if(EventInvokeType=="All")PlayFabmanager.instance.SendEventToAll(SignalRClient.instance.SignalRID,DataType,DataValue);
+    //    else if (EventInvokeType == "Private") PlayFabmanager.instance.SendEventToPrivatePlayer(SignalRClient.instance.SignalRID, DataType, DataValue);
+       // else PlayFabmanager.instance.SendEventToGroup(SignalRClient.instance.SignalRID,"GroupName", DataType, DataValue);
     }
 }
 public class PresetLayers
