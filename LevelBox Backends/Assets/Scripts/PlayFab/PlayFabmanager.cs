@@ -13,19 +13,6 @@ using Newtonsoft.Json;
 public class PlayFabmanager : MonoBehaviour
 {
     public static PlayFabmanager instance;
-
-    [SerializeField] GameObject signUpTab, logInTab, startPanel;
-    [Header("Sign Up")]
-    public TextMeshProUGUI username;
-    public TextMeshProUGUI userEmail;
-    public TextMeshProUGUI userPassword;
-    public TextMeshProUGUI errorSignUp;
-
-    [Header("Log In")]
-    public TextMeshProUGUI userEmailLogin;
-    public TextMeshProUGUI userPasswordLogin;
-    public TextMeshProUGUI errorLogin;
-
     string encryptedPassword;
 
     private void Awake()
@@ -35,31 +22,6 @@ public class PlayFabmanager : MonoBehaviour
     }
 
     #region Signup and Login
-
-    public void SignUpTab()
-    {
-        signUpTab.SetActive(true);
-        logInTab.SetActive(false);
-        startPanel.SetActive(false);
-    }
-
-    public void LoginTab()
-    {
-        signUpTab.SetActive(false);
-        logInTab.SetActive(true);
-        startPanel.SetActive(false);
-        errorSignUp.text = " ";
-        errorLogin.text = " ";
-    }
-
-    public void MenuTab()
-    {
-        signUpTab.SetActive(false);
-        logInTab.SetActive(false);
-        startPanel.SetActive(true);
-        errorSignUp.text = " ";
-        errorLogin.text = " ";
-    }
 
     string Encrypt(string StringToEncrypt)
     {
@@ -76,13 +38,6 @@ public class PlayFabmanager : MonoBehaviour
         return s.ToString();
     }
 
-    public void SignUp()
-    {
-       // Debug.Log(username.text);
-        var registerRequest = new RegisterPlayFabUserRequest { Email = userEmail.text, Password = Encrypt(userPassword.text),Username=username.text.Substring(0,username.text.Length-1) };
-        PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterFailure);
-    }
-
     public void SignUp(string Email , string Password,string Username )
     {
         // Debug.Log(username.text);
@@ -92,21 +47,15 @@ public class PlayFabmanager : MonoBehaviour
 
     void RegisterSuccess(RegisterPlayFabUserResult result)
     {
-        errorSignUp.text = " ";
+      
         GameManager.PlayerUserName = result.Username;
         SceneManager.LoadScene("Connect");
     }
 
     void RegisterFailure(PlayFabError error)
     {
-        errorSignUp.text = "Error Signing Up ";
+       
         Debug.Log(error);
-    }
-
-    public void Login()
-    {
-        var request = new LoginWithEmailAddressRequest { Email = userEmailLogin.text, Password = Encrypt(userPasswordLogin.text) };
-        PlayFabClientAPI.LoginWithEmailAddress(request, LoginSuccess, loginFailure);
     }
 
     public void Login(string Email, string Password)
@@ -120,13 +69,12 @@ public class PlayFabmanager : MonoBehaviour
     }
     void loginFailure(PlayFabError error)
     {
-        errorLogin.text = "Error Logging in ";
+      
         Debug.Log(error);
     }
 
     void LoginSuccess(LoginResult login)
     {
-        errorLogin.text = " ";
         GameManager.PlayerUserName =  login.InfoResultPayload.PlayerProfile.DisplayName;
         SceneManager.LoadScene("Connect");
     }
