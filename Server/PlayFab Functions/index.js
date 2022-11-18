@@ -47,11 +47,21 @@ app.post("/XPReceived", (req, res) => {
   UpdateStat(XP, 0, ID)
   UpdateStat(Level, 0, ID)
 
-  console.log("Player Initialized")
+  CheckForLevelUP();
+  console.log("Player Levek Updated")
 })
 
 
 function CheckForLevelUP() {
   //Perform Calculations 
   // UpdateStat(Level, Whatever Level Player Is, ID)
+}
+
+app.post("/GiveInventoryItemToUser",(req,res)=>{
+  ID = req.body[0].EntityId;
+  GiveInventoryItemToUser(ID);
+})
+
+async function GiveInventoryItemToUser(PlayerID){
+  var update = PlayFabServer.GrantItemsToUser({PlayFabId: PlayerID ,ItemIds:"DefaultBlock"});
 }
