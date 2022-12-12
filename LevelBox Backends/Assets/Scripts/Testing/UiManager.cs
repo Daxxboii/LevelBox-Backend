@@ -35,4 +35,9 @@ public class UiManager : MonoBehaviour
             }*/
         }
     }
+
+    public void LoginAsDaxx()
+    {
+        PlayFabmanager.instance.Login("dhakaddaksh123@gmail.com", "Daksh123/");
+    }
 }

@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 public class PlayFabmanager : MonoBehaviour
 {
     public static PlayFabmanager instance;
+    public static string EntityId,SessionTicket;
     string encryptedPassword;
 
     private void Awake()
@@ -47,9 +48,10 @@ public class PlayFabmanager : MonoBehaviour
 
     void RegisterSuccess(RegisterPlayFabUserResult result)
     {
-      
+        SessionTicket = result.SessionTicket;
+        EntityId = result.EntityToken.Entity.Id;
         GameManager.PlayerUserName = result.Username;
-        SceneManager.LoadScene("Connect");
+        SceneManager.LoadScene("MatchMaking");
     }
 
     void RegisterFailure(PlayFabError error)
@@ -75,8 +77,10 @@ public class PlayFabmanager : MonoBehaviour
 
     void LoginSuccess(LoginResult login)
     {
+        SessionTicket = login.SessionTicket;
+        EntityId = login.EntityToken.Entity.Id;
         GameManager.PlayerUserName =  login.InfoResultPayload.PlayerProfile.DisplayName;
-        SceneManager.LoadScene("Connect");
+        SceneManager.LoadScene("MatchMaking");
     }
     #endregion
 

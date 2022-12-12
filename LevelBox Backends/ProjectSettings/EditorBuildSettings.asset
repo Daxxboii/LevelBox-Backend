@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Connect.unity
-    guid: 31852f3a91ef10244998d3a626bbc6b5
-  - enabled: 1
     path: Assets/Scenes/PlayerLogin.unity
     guid: cc852f3419cf243428937df043f11b68
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/MatchMaking.unity
+    guid: bfd213b29e0a21d4cb014e07275cdc3f
+  - enabled: 1
+    path: Assets/Scenes/Connect.unity
+    guid: 31852f3a91ef10244998d3a626bbc6b5
   m_configObjects: {}
