@@ -3,5 +3,6 @@
 
 ## How to install 
 - Use the command ```curl -O https://raw.githubusercontent.com/Daxxboii/LevelBox-Backend/main/Spinnaker/SpinnakerBashTutorial.sh``` to download the bash file 
+- Use the command ```perl -pi -e 's/\r\n/\n/g' SpinnakerBashTutorial.sh```
 - Use the command ```sudo bash SpinnakerBashTutorial.sh``` to set everything up
 - Enter the details required
