@@ -39,7 +39,7 @@ hal config storage edit --type s3
 hal config version edit --version 1.27.3
 
 
-hal deploy apply
+sudo hal deploy apply
 
 
-hal deploy connect
+sudo hal deploy connect
