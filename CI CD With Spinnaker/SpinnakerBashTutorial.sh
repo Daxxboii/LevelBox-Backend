@@ -38,6 +38,8 @@ hal config storage edit --type s3
 
 hal config version edit --version 1.27.3
 
+echo "host: 0.0.0.0" | tee ~/.hal/default/service-settings/gate.yml ~/.hal/default/service-settings/deck.yml
+
 
 sudo hal deploy apply
 
